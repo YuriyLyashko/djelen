@@ -1,10 +1,30 @@
+{% load static from staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Calculate</title>
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <title>Djelen</title>
 </head>
-<body>
-    <h1>Calculate</h1>
-</body>
+    <body>
+        <div class="header block">
+            <a class="text_djelen" href="/">Djelen</a>
+
+            <div class="header_user">.header_user
+            </div>
+        </div>
+
+        <div class="column1 block column">.column1</div>
+
+        <div class="column3 block column">.column3</div>
+
+        <div class="column2 block column">
+            {%block content%}
+
+            {%endblock%}
+        </div>
+
+        <div class="footer block">.footer</div>
+    </body>
 </html>
