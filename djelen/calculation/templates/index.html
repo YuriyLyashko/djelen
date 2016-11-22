@@ -11,15 +11,45 @@
         <div class="header block">
             <a class="text_djelen" href="/">Djelen</a>
 
-            <div class="header_user">.header_user
+            <div class="header_user">
+                {% if user.is_anonymous %}
+                Hello, Guest!
+                <form action="{% url 'log_in' %}" method="POST">
+                    {% csrf_token %}
+                    {{ login_form.as_p }}
+                    <p><input type="submit" value="Вхід"></p>
+                </form>
+                <form action="{% url 'registration' %}" method="GET">
+                    <input type="submit" name="but_register" value="Реєстрація">
+                </form>
+
+            {% else %}
+                Hello, {{ user.first_name }} {{ user.last_name }}!
+                <form action="{% url 'log_out' %}" method="POST">
+                    {% csrf_token %}
+                    <p><input type="submit" value="Вихід"></p>
+                </form>
+            {% endif %}
+
+            {% if messages %}
+                <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
             </div>
         </div>
 
-        <div class="column1 block column">.column1</div>
+        <div class="column1 block column">.column1 </div>
 
-        <div class="column3 block column">.column3</div>
+        <div class="column3 block column">.column3 </div>
 
         <div class="column2 block column">
+            <p>{{ el_obj }}</p>
+            {% for em in el_meters %}
+                <p>{{ em }}</p>
+            {% endfor %}
             {%block content%}
 
             {%endblock%}
