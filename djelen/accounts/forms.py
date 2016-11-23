@@ -20,6 +20,7 @@ class RegisterUserForm(forms.ModelForm):
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password')
 
+
 class Login(forms.Form):
     username = forms.CharField(label='Логін')
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput())

@@ -11,6 +11,7 @@ def registration(request):
     login_form = Login()
     user_form = RegisterUserForm()
     if request.POST:
+        print('post')
         user_form = RegisterUserForm(request.POST)
         if user_form.is_valid():
             try:
@@ -26,11 +27,7 @@ def registration(request):
             except IntegrityError:
                 print('!!!')
                 messages.success(request, "Користувач з таким логіном вже існує!")
-
-
-#        else:
-#            messages.success(request, "Registranion false")
-#            return redirect('/')
+    print('render', user_form)
     return render(request, 'registration.html', {'user_form': user_form, 'login_form': login_form})
 
 

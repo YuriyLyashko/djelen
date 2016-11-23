@@ -4,7 +4,9 @@ from django.contrib.auth.models import User
 # Create your models here.
 class ElectrifiedObject(models.Model):
     name = models.CharField("Назва електрифікованого об'єкту", max_length=255)
-    address = models.CharField("Адреса електрифікованого об'єкту", max_length=255, null=True)
+    address = models.CharField("Адреса електрифікованого об'єкту", max_length=255, null=True, blank=True)
+    user = models.ForeignKey(User)
+    last_selected_el_mtr = models.CharField("Останній обраний об'єкт", max_length=255, null=True, blank=True)
 
     def __str__(self):
         return "Назва електрифікованого об'єкту: " + str(self.name)
@@ -32,3 +34,7 @@ class Tariffs(models.Model):
 
     def __str__(self):
         return "Тарифи: {}, {}, {}".format(self.tarrif_limit_1, self.tarrif_limit_2, self.tarrif_limit_3)
+
+class LastSelected(models.Model):
+    user = models.OneToOneField(User)
+    el_obj = models.OneToOneField(ElectrifiedObject)
