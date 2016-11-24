@@ -1,7 +1,5 @@
 from django import forms
 
-from .models import ElectrifiedObject
-
 class Texts:
     сentral_title = "Розрахунок вартості спожитої електроенергії для однозонного лічильника."
 
@@ -27,18 +25,3 @@ class Texts:
                                                 "до               кВт∙год електроенергії на місяць (включно):"
     pointer_amount_of_electricity_in_tariff_3 = "обсяг, спожитий понад               кВт∙год електроенергії на місяць:"
     pointer_total_amount_of_money = "Всього:                          грн."
-
-
-
-class ElectrifiedObjectForm(forms.ModelForm):
-    class Meta:
-        model = ElectrifiedObject
-        fields = ('name', 'address')
-
-class ElectrifiedObjectForm(forms.Form):
-    pass
-
-
-class Login(forms.ModelForm):
-    username = forms.CharField(label='Логін')
-    password = forms.CharField(label='Пароль', widget=forms.PasswordInput())

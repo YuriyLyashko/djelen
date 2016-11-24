@@ -1,18 +1,20 @@
 from django.shortcuts import render
 from accounts.forms import RegisterUserForm, Login
-from django.contrib.auth.models import User
 
-from django import forms
-from .models import ElectrifiedObject, ElectricityMeter, Readings, Tariffs, LastSelected
-from .forms import ElectrifiedObjectForm
+from electrified_objects.models import ElectrifiedObject, ElectricityMeter, Readings, LastSelected
+from electrified_objects.forms import ElectrifiedObjectForm
+
+from .forms import Texts
 
 # Create your views here.
 def index(request):
     print('index')
     login_form = Login()
     current_user = request.user
+
+    texts = Texts()
     if current_user.is_anonymous:
-        return render(request, 'index.html', {'login_form': login_form, })
+        return render(request, 'index.html', {'login_form': login_form, 'texts': texts, })
 
     try:
         el_objs = ElectrifiedObject.objects.filter(user_id=current_user.id)
@@ -23,10 +25,16 @@ def index(request):
                                               'el_objs': el_objs,
                                               'last_selected': last_selected,
                                               'el_mtrs': el_mtrs,
+                                              'texts': texts,
                                               }
                       )
     except:
-        return render(request, 'index.html', {'login_form': login_form, })
+        el_objs = ElectrifiedObject.objects.filter(user_id=current_user.id)
+
+        return render(request, 'index.html', {'login_form': login_form,
+                                              'el_objs': el_objs,
+                                              }
+                      )
     finally:
         if request.POST.get('but_select_el_obj'):
             print('but_select_el_obj')

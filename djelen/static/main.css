@@ -9,8 +9,17 @@
     color: blue;
     font-size: 55px;
     text-align: center;
-    width: 60%;
+    width: 70%;
     height: 90%;
+}
+
+h4 {
+    text-align: center;
+}
+
+h3 {
+    width: 70%;
+    margin: 10px;
 }
 
 .img_cart {
@@ -45,19 +54,19 @@ body {
 
 .column1 {
     float: left;
-    width: 15%;
+    width: 10%;
     margin: 9px;
     }
 
 .column2 {
     float: left;
-    width: 60%;
+    width: 70%;
     margin: 9px;
     }
 
 .column3 {
     float: right;
-    width: 15%;
+    width: 10%;
     margin: 9px;
     }
 

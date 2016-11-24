@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import ElectrifiedObject, ElectricityMeter, Readings, Tariffs
+from electrified_objects.models import ElectrifiedObject, ElectricityMeter, Readings
+from tariffs.models import Tariffs
 
 # Register your models here.
 admin.site.register(ElectrifiedObject)
