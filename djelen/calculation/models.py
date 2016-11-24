@@ -6,7 +6,6 @@ class ElectrifiedObject(models.Model):
     name = models.CharField("Назва електрифікованого об'єкту", max_length=255)
     address = models.CharField("Адреса електрифікованого об'єкту", max_length=255, null=True, blank=True)
     user = models.ForeignKey(User)
-    last_selected_el_mtr = models.CharField("Останній обраний об'єкт", max_length=255, null=True, blank=True)
 
     def __str__(self):
         return "Назва електрифікованого об'єкту: " + str(self.name)
@@ -38,3 +37,4 @@ class Tariffs(models.Model):
 class LastSelected(models.Model):
     user = models.OneToOneField(User)
     el_obj = models.OneToOneField(ElectrifiedObject)
+    el_mtr = models.OneToOneField(ElectricityMeter, null=True)

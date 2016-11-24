@@ -33,9 +33,9 @@
                     <form method="post">
                         {% csrf_token %}
                         <select name="select_el_obj">
-                            {% if last_selected_el_obj %}
-                            <option value={{ last_selected_el_obj.el_obj.id }} selected>
-                                {{ last_selected_el_obj.el_obj.name }}
+                            {% if last_selected %}
+                            <option value={{ last_selected.el_obj.id }} selected>
+                                {{ last_selected.el_obj.name }}
                             </option>
                             {% endif %}
                             <option disabled> ----- </option>
@@ -43,21 +43,25 @@
                             <option value={{ eo.id }}> {{ eo.name }} </option>
                             {% endfor %}
                         </select>
-                        <input type="submit" value="Ok">
-                        <input type="submit" value="+">
+                        <input type="submit" name="but_select_el_obj" value="Ok">
+                        <input type="submit" name="but_add_el_obj" value="+">
                     </form>
-                    {% if el_mtr %}
+
+                    {% if el_mtrs %}
                         <p>Лічильник:</p>
                     <form method="post">
+                        {% csrf_token %}
                         <select name="select_el_mtr">
-                            <option selected> {{ el_mtr.selected.number }} </option>
+                            <option value={{ last_selected.el_mtr.id }} selected>
+                                {{ last_selected.el_mtr.number }}
+                            </option>
                             <option disabled> ----- </option>
-                            {% for em in el_mtr %}
+                            {% for em in el_mtrs %}
                             <option value={{ em.id }}> {{ em.number }} </option>
                             {% endfor %}
                         </select>
-                        <input type="submit" value="Ok">
-                        <input type="submit" value="+">
+                        <input type="submit" name="but_select_el_mtr" value="Ok">
+                        <input type="submit" name="but_add_el_mtr" value="+">
                     </form>
                         {% endif %}
 
