@@ -1,0 +1,18 @@
+{%extends 'index.html'%}
+{%block content%}
+    <form method="post">
+        {{ el_objs_form.as_p }}
+        {{ el_mtrs_form.as_p }}
+
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        <input type="submit" value="Ok">
+    </form>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }} </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{%endblock%}

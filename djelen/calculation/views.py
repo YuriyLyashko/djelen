@@ -29,15 +29,16 @@ def index(request):
                                               }
                       )
     except:
-        el_objs = ElectrifiedObject.objects.filter(user_id=current_user.id)
-
+        #el_objs = ElectrifiedObject.objects.filter(user_id=current_user.id)
+        #print('!', el_objs)
         return render(request, 'index.html', {'login_form': login_form,
                                               'el_objs': el_objs,
+                                              'texts': texts,
                                               }
                       )
     finally:
-        if request.POST.get('but_select_el_obj'):
-            print('but_select_el_obj')
+        if request.POST.get('select_el_obj'):
+            print('select_el_obj')
             selected_el_obj_id = request.POST.get('select_el_obj')
             selected_el_obj = ElectrifiedObject.objects.get(pk=selected_el_obj_id)
             el_mtrs = ElectricityMeter.objects.filter(el_object_id=selected_el_obj_id)
@@ -52,11 +53,12 @@ def index(request):
                                                   'el_objs': el_objs,
                                                   'last_selected': last_selected,
                                                   'el_mtrs': el_mtrs,
+                                                  'texts': texts,
                                                   }
                           )
 
-        if request.POST.get('but_select_el_mtr'):
-            print('but_select_el_mtr')
+        if request.POST.get('select_el_mtr'):
+            print('select_el_mtr')
             selected_el_mtr_id = request.POST.get('select_el_mtr')
             print('selected_el_mtr_id', selected_el_mtr_id)
             last_selected_el_mtr = ElectricityMeter.objects.get(pk=selected_el_mtr_id)
@@ -68,6 +70,6 @@ def index(request):
                                                   'el_objs': el_objs,
                                                   'last_selected': last_selected,
                                                   'el_mtrs': el_mtrs,
+                                                  'texts': texts,
                                                   }
                           )
-

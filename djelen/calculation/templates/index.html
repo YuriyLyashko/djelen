@@ -9,73 +9,123 @@
 </head>
     <body>
         <div class="header block">
-            <a class="text_djelen" href="/">Djelen</a>
+            <div class="header_left block">
+                <a class="text_djelen" href="/">Djelen</a>
+            </div>
 
-            <div class="header_user">
+            <div class="header_right">
                 {% if user.is_anonymous %}
-                    Hello, Guest!
-                    <form action="{% url 'log_in' %}" method="POST">
-                        {% csrf_token %}
-                        {{ login_form.as_p }}
-                        <p><input type="submit" value="Вхід"></p>
-                    </form>
-                    <form action="{% url 'registration' %}" method="GET">
-                        <input type="submit" name="but_register" value="Реєстрація">
-                    </form>
+                    <div class="header_user">
+                        Вітаю, Гість!
+                        <form action="{% url 'log_in' %}" method="POST">
+                            {% csrf_token %}
+                            {{ login_form.as_p }}
+                            <input class="buts" type="submit" value="Вхід">
+                        </form>
+                        <form class="buts" action="{% url 'registration' %}" method="GET">
+                            <input type="submit" name="but_register" value="Реєстрація">
+                        </form>
+                    </div>
+
+
                 {% else %}
-                    Hello, {{ user.first_name }} {{ user.last_name }}!
-                    <form action="{% url 'log_out' %}" method="POST">
-                        {% csrf_token %}
-                        <p><input type="submit" value="Вихід"></p>
-                    </form>
 
-                    <p>Об'єкт:</p>
-                    <form method="post">
-                        {% csrf_token %}
-                        <select name="select_el_obj">
-                            {% if last_selected %}
-                            <option value={{ last_selected.el_obj.id }} selected>
-                                {{ last_selected.el_obj.name }}
-                            </option>
-                            {% endif %}
-                            <option disabled> ----- </option>
-                            {% for eo in el_objs %}
-                            <option value={{ eo.id }}> {{ eo.name }} </option>
-                            {% endfor %}
-                        </select>
-                        <input type="submit" name="but_select_el_obj" value="Ok">
-                        <input type="submit" name="but_add_el_obj" value="...">
-                    </form>
 
-                    {% if el_mtrs %}
-                        <p>Лічильник:</p>
-                    <form method="post">
-                        {% csrf_token %}
-                        <select name="select_el_mtr">
-                            <option value={{ last_selected.el_mtr.id }} selected>
-                                {{ last_selected.el_mtr.number }}
-                            </option>
-                            <option disabled> ----- </option>
-                            {% for em in el_mtrs %}
-                            <option value={{ em.id }}> {{ em.number }} </option>
-                            {% endfor %}
-                        </select>
-                        <input type="submit" name="but_select_el_mtr" value="Ok">
-                        <input type="submit" name="but_add_el_mtr" value="...">
-                    </form>
+                    <div class="header_user">
+                        Hello, {{ user.first_name }} {{ user.last_name }}!
+                        <form action="{% url 'log_out' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" value="Вихід">
+                        </form>
+                    </div>
+
+
+                    <div class="header_objs">
+                        Об'єкт:
+                        {% if el_objs %}
+                            <form method="post">
+                                {% csrf_token %}
+                                <select name="select_el_obj" onchange="this.form.submit()">
+                                    {% if last_selected %}
+                                        <option value={{ last_selected.el_obj.id }} selected>
+                                            {% if last_selected.el_obj %}
+                                                {{ last_selected.el_obj.name }}
+                                            {% else %}
+                                                <span class="text_enter_el_obj">Оберіть електрифікований об'єкт!</span>
+                                            {% endif %}
+                                        </option>
+                                    {% endif %}
+                                    <option disabled> ----- </option>
+                                        {% for eo in el_objs %}
+                                            <option value={{ eo.id }}> {{ eo.name }} </option>
+                                        {% endfor %}
+                                </select>
+                            </form>
+                            <form class="buts" action="{% url 'change_el_obj' %}" method="post">
+                                {% csrf_token %}
+                                    <input type="submit" name="but_change_el_obj" value="...">
+                            </form>
+                            <form class="buts" action="{% url 'change_el_obj' %}" method="post">
+                                {% csrf_token %}
+                                <input type="submit" name="but_sub_el_obj" value="-">
+                            </form>
                         {% endif %}
 
 
 
+                        <form class="buts" action="{% url 'change_el_obj' %}" method="post">
+                            {% csrf_token %}
+                            <input type="submit" name="but_add_el_obj" value="+">
+                        </form>
+
+                    </div>
+
+                    <div class="header_mtrs">
+                        Лічильник:
+
+                        {% if el_mtrs %}
+                            <form method="post">
+                                {% csrf_token %}
+                                <select name="select_el_mtr" onchange="this.form.submit()">
+                                    <option value={{ last_selected.el_mtr.id }} selected>
+                                        {% if last_selected.el_mtr %}
+                                            {{ last_selected.el_mtr.number }}
+                                        {% else %}
+                                            <span class="text_enter_el_mtr"> Оберіть лічильник! </span>
+                                        {% endif %}
+                                    </option>
+                                    <option disabled> ----- </option>
+                                    {% for em in el_mtrs %}
+                                        <option value={{ em.id }}> {{ em.number }} </option>
+                                    {% endfor %}
+                                </select>
+                            </form>
+                            <form class="buts" action="{% url 'change_el_obj' %}" method="post">
+                                {% csrf_token %}
+                                <input type="submit" name="but_change_el_mtr" value="...">
+                            </form>
+                            <form class="buts" action="{% url 'change_el_obj' %}" method="post">
+                                {% csrf_token %}
+                                <input type="submit" name="but_sub_el_mtr" value="-">
+                            </form>
+                        {% endif %}
+                        <form class="buts" action="{% url 'change_el_obj' %}" method="post">
+                            {% csrf_token %}
+                            <input type="submit" name="but_add_el_mtr" value="+">
+                        </form>
+
+                    </div>
+                        {% if messages %}
+                            <div class="header_msgs">
+                                <ul class="messages">
+                                    {% for message in messages %}
+                                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }} </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
                 {% endif %}
 
-                {% if messages %}
-                    <ul class="messages">
-                    {% for message in messages %}
-                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                    {% endfor %}
-                    </ul>
-                {% endif %}
             </div>
         </div>
 
@@ -86,8 +136,28 @@
         <div class="column2 block column">
             {%block content%}
 
+
+            {% if user.is_anonymous %}
+                <p class="text_authenticate">
+                    Щоб отримати можливість зберігати розрахунки, необхідно автентифікуватися.
+                </p>
+            {% else %}
+
+            {% if last_selected.el_obj %}
+                <span class="text_el_obj_entered"> {{ last_selected.el_obj }}, </span>
+            {% else %}
+                <span class="text_enter_el_obj"> Оберіть електрифікований об'єкт! </span>
+            {% endif %}
+
+            {% if last_selected.el_mtr %}
+                <span class="text_el_mtr_entered"> {{ last_selected.el_mtr }} </span>
+            {% else %}
+                <span class="text_enter_el_mtr"> Оберіть лічильник! </span>
+            {% endif %}
+            {% endif %}
             <h4>{{ texts.сentral_title }}</h4>
             <h5>{{ texts.header_of_block_tariffs }}</h5>
+
 
 
 
@@ -97,3 +167,4 @@
         <div class="footer block">.footer</div>
     </body>
 </html>
+

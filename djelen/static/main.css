@@ -4,13 +4,12 @@
     margin: 9px;
 }
 
-.text_djelen {
+.header_left {
     float: left;
     color: blue;
     font-size: 55px;
     text-align: center;
     width: 70%;
-    height: 90%;
 }
 
 h4 {
@@ -22,15 +21,33 @@ h3 {
     margin: 10px;
 }
 
+.text_enter_el_obj, .text_enter_el_mtr, .text_authenticate{
+    color: red;
+}
+
+.text_el_obj_entered, .text_el_mtr_entered {
+    color: blue;
+}
+
+.buts {
+    float: left;
+}
+
 .img_cart {
     float: right;
     width: 50px;
     }
 
-.header_user {
+.header_right {
     float: right;
-    width: 25%;
+    width: 20%;
     height: 90%;
+}
+
+.header_user, .header_objs, .header_mtrs, .header_msgs {
+    float: left;
+    width: 90%;
+    margin: 3px 0;
 }
 
 body {

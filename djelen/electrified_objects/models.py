@@ -10,12 +10,14 @@ class ElectrifiedObject(models.Model):
     def __str__(self):
         return "Назва електрифікованого об'єкту: " + str(self.name)
 
+
 class ElectricityMeter(models.Model):
     number = models.CharField("Номер лічильника", max_length=255)
     el_object = models.ForeignKey(ElectrifiedObject)
 
     def __str__(self):
         return "Номер лічильника: {}".format(self.number)
+
 
 class Readings(models.Model):
     previous_readings = models.PositiveIntegerField("Попередні покази лічильника")
@@ -24,6 +26,7 @@ class Readings(models.Model):
 
     def __str__(self):
         return "Покази лічильника: {}, {}".format(self.previous_readings, self.current_readings)
+
 
 class LastSelected(models.Model):
     user = models.OneToOneField(User)
