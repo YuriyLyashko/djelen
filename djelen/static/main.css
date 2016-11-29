@@ -12,14 +12,17 @@
     width: 70%;
 }
 
-h4 {
-    text-align: center;
+.header_right {
+    float: right;
+    width: 25%;
+    height: 90%;
 }
 
-h3 {
-    width: 70%;
-    margin: 10px;
+.text_block_header {
+    float: left;
+    width: 90%;
 }
+
 
 .text_enter_el_obj, .text_enter_el_mtr, .text_authenticate{
     color: red;
@@ -29,8 +32,24 @@ h3 {
     color: blue;
 }
 
+.selects {
+    width: 99%;
+}
+
 .buts {
     float: left;
+    width: 33%;
+}
+
+
+
+h4 {
+    text-align: center;
+}
+
+h3 {
+    width: 70%;
+    margin: 10px;
 }
 
 .img_cart {
@@ -38,16 +57,12 @@ h3 {
     width: 50px;
     }
 
-.header_right {
-    float: right;
-    width: 20%;
-    height: 90%;
-}
+
 
 .header_user, .header_objs, .header_mtrs, .header_msgs {
     float: left;
-    width: 90%;
-    margin: 3px 0;
+    width: 100%;
+    margin: 5px 0;
 }
 
 body {

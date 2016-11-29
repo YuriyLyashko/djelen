@@ -1,0 +1,18 @@
+{%extends 'index.html'%}
+{%block content%}
+    <h4> Видалення електрифікованого об'єкту "{{ last_selected.el_obj.name }}" </h4>
+    <form method="POST">
+        {% csrf_token %}
+        <p>
+            Увага! Буде видалено всі лічильники та збережені дані пов'язані з вибраним об'єктом!
+            Для видалення електрифікованого об'єкту введіть його назву:
+        </p>
+        <p>
+            <input type="text" name="name" value="{{ last_selected.el_obj.name }}">
+        </p>
+        <input type="submit" name="del"  value="Видалити">
+        <input type="submit" name="cancel" value="Скасувати">
+    </form>
+
+
+{%endblock%}
