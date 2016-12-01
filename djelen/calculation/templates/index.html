@@ -44,7 +44,7 @@
                     <div class="header_objs">
                         <span class="text_block_header"> Електрифікований об'єкт: </span>
                         {% if el_objs %}
-                            <form method="post">
+                            <form action="{% url 'index' %}" method="post">
                                 {% csrf_token %}
                                 <select class="selects" name="select_el_obj" onchange="this.form.submit()">
                                     {% if last_selected %}
@@ -73,7 +73,7 @@
                         {% endif %}
 
 
-                        <form title="Додати новий електрифікований об'єкт" action="{% url 'change_el_obj' %}" method="post">
+                        <form title="Додати новий електрифікований об'єкт" action="{% url 'add_el_obj' %}" method="post">
                             {% csrf_token %}
                             <input class="buts" type="submit" name="but_add_el_obj" value="+">
                         </form>
@@ -84,7 +84,7 @@
                         <div class="header_mtrs">
                             <span class="text_block_header"> Лічильник: </span>
                             {% if el_mtrs %}
-                                <form method="post">
+                                <form action="{% url 'index' %}" method="post">
                                     {% csrf_token %}
                                     <select class="selects" name="select_el_mtr" onchange="this.form.submit()">
                                         <option value={{ last_selected.el_mtr.id }} selected>
@@ -100,16 +100,16 @@
                                         {% endfor %}
                                     </select>
                                 </form>
-                                <form title="Редагувати" action="{% url 'change_el_obj' %}" method="post">
+                                <form title="Редагувати" action="{% url 'change_el_mtr' %}" method="post">
                                     {% csrf_token %}
                                     <input class="buts" type="submit" name="but_change_el_mtr" value="...">
                                 </form>
-                                <form title="Видалити обраний лічильник" action="{% url 'change_el_obj' %}" method="post">
+                                <form title="Видалити обраний лічильник" action="{% url 'del_el_mtr' %}" method="post">
                                     {% csrf_token %}
-                                    <input class="buts" type="submit" name="but_sub_el_mtr" value="-">
+                                    <input class="buts" type="submit" name="but_del_el_mtr" value="-">
                                 </form>
                             {% endif %}
-                            <form title="Додати новий лічильник" action="{% url 'change_el_obj' %}" method="post">
+                            <form title="Додати новий лічильник" action="{% url 'add_el_mtr' %}" method="post">
                                 {% csrf_token %}
                                 <input class="buts" type="submit" name="but_add_el_mtr" value="+">
                             </form>

@@ -15,7 +15,6 @@ def index(request):
     texts = Texts()
     if current_user.is_anonymous:
         return render(request, 'index.html', {'login_form': login_form, 'texts': texts, })
-
     try:
         el_objs = ElectrifiedObject.objects.filter(user_id=current_user.id)
         last_selected = LastSelected.objects.get(user_id=current_user.id)

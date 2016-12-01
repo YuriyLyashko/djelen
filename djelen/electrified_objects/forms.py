@@ -9,4 +9,4 @@ class ElectrifiedObjectForm(forms.ModelForm):
 class ElectricityMeterForm(forms.ModelForm):
     class Meta:
         model = ElectricityMeter
-        fields = ('number',)
+        fields = '__all__'

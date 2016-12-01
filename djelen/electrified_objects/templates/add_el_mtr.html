@@ -1,0 +1,14 @@
+{%extends 'index.html'%}
+{%block content%}
+    <h4> Створення лічильника </h4>
+    <form method="POST">
+        {% csrf_token %}
+        {{ el_mtr_form.as_p }}
+        <input class="buts" type="submit" name="add"  value="Створити">
+    </form>
+    <form method="POST">
+        {% csrf_token %}
+        <input class="buts" type="submit" name="cancel" value="Скасувати">
+    </form>
+
+{%endblock%}

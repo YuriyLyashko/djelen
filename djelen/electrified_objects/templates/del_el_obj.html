@@ -4,11 +4,13 @@
     <form method="POST">
         {% csrf_token %}
         <p>
-            Увага! Буде видалено всі лічильники та збережені дані пов'язані з вибраним об'єктом!
+            Увага! Буде видалено всі лічильники та збережені дані, які пов'язані з вибраним об'єктом!
+        </p>
+        <p>
             Для видалення електрифікованого об'єкту введіть його назву:
         </p>
         <p>
-            <input type="text" name="name" value="{{ last_selected.el_obj.name }}">
+            <input type="text" name="name">
         </p>
         <input type="submit" name="del"  value="Видалити">
         <input type="submit" name="cancel" value="Скасувати">

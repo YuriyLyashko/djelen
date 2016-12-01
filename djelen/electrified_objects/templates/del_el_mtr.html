@@ -1,0 +1,22 @@
+{%extends 'index.html'%}
+{%block content%}
+    <h4> Видалення лічильника номер: {{ last_selected.el_mtr.number }} </h4>
+    <form method="POST">
+        {% csrf_token %}
+        <p>
+            Увага! Буде видалено всі збережені дані, які пов'язані з вибраним лічильником!
+        </p>
+        <p>
+            Для видалення лічильника введіть його номер та оберіть електрифікований об'єкт:
+        </p>
+        <p>
+            <input type="text" name="number">
+            {{ el_mtr_form.el_object }}
+        </p>
+
+        <input type="submit" name="del"  value="Видалити">
+        <input type="submit" name="cancel" value="Скасувати">
+    </form>
+
+
+{%endblock%}

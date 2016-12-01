@@ -1,0 +1,19 @@
+{%extends 'index.html'%}
+{%block content%}
+    <h4> Редагування лічильника "{{ last_selected.el_mtr.number }}" </h4>
+    <form method="POST">
+        {% csrf_token %}
+        <p>
+            Номер лічильника:
+            <input type="text" name="number" value="{{ last_selected.el_mtr.number }}">
+        </p>
+        <p>
+            Електрифікований об'єкт, на якому встановлено лічильник:
+            {{ el_mtr_form.el_object }}
+        </p>
+        <input type="submit" name="save"  value="Зберегти">
+        <input type="submit" name="cancel" value="Скасувати">
+    </form>
+
+
+{%endblock%}
