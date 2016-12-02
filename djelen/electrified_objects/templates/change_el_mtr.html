@@ -9,7 +9,15 @@
         </p>
         <p>
             Електрифікований об'єкт, на якому встановлено лічильник:
-            {{ el_mtr_form.el_object }}
+            <select name="el_object" class="selects">
+                <option>
+                    <span class="text_enter_el_obj">Оберіть електрифікований об'єкт!</span>
+                </option>
+            <option disabled> ----- </option>
+                {% for eo in el_objs %}
+                    <option value={{ eo.id }}> {{ eo.name }} </option>
+                {% endfor %}
+        </select>
         </p>
         <input type="submit" name="save"  value="Зберегти">
         <input type="submit" name="cancel" value="Скасувати">

@@ -11,15 +11,19 @@ def change_el_obj(request):
     current_user = request.user
     if not current_user.is_anonymous:
         if request.POST.get('but_change_el_obj'):
-            el_objs = ElectrifiedObject.objects.filter(user_id=current_user.id)
-            last_selected = LastSelected.objects.get(user_id=current_user.id)
-            selected_el_obj_id = last_selected.el_obj_id
-            el_mtrs = ElectricityMeter.objects.filter(el_object_id=selected_el_obj_id)
-            return render(request, 'change_el_obj.html', {'el_objs': el_objs,
-                                                          'last_selected': last_selected,
-                                                          'el_mtrs': el_mtrs,
-                                                          }
-                          )
+            try:
+                last_selected = LastSelected.objects.get(user=current_user)
+                el_objs = ElectrifiedObject.objects.filter(user=current_user)
+                selected_el_obj_id = last_selected.el_obj_id
+                el_mtrs = ElectricityMeter.objects.filter(el_object_id=selected_el_obj_id)
+                return render(request, 'change_el_obj.html', {'el_objs': el_objs,
+                                                              'last_selected': last_selected,
+                                                              'el_mtrs': el_mtrs,
+                                                              }
+                              )
+            except:
+                messages.success(request, "Оберіть електрифікований об'єкт для редагування")
+                return redirect('/')
 
         if request.POST.get('save'):
             print(request.POST.get('save'))
@@ -46,21 +50,19 @@ def del_el_obj(request):
     current_user = request.user
     if not current_user.is_anonymous:
         if request.POST.get('but_del_el_obj'):
-            el_objs = ElectrifiedObject.objects.filter(user_id=current_user.id)
-            last_selected = LastSelected.objects.get(user_id=current_user.id)
-            selected_el_obj_id = last_selected.el_obj_id
-            el_mtrs = ElectricityMeter.objects.filter(el_object_id=selected_el_obj_id)
-
-            #el_objs_form = ElectrifiedObjectForm()
-            #el_mtrs_form = ElectricityMeterForm()
-
-            return render(request, 'del_el_obj.html', {'el_objs': el_objs,
-                                                          'last_selected': last_selected,
-                                                          'el_mtrs': el_mtrs,
-                                                          #'el_objs_form': el_objs_form,
-                                                          #'el_mtrs_form': el_mtrs_form,
-                                                          }
-                          )
+            try:
+                last_selected = LastSelected.objects.get(user_id=current_user.id)
+                el_objs = ElectrifiedObject.objects.filter(user_id=current_user.id)
+                selected_el_obj_id = last_selected.el_obj_id
+                el_mtrs = ElectricityMeter.objects.filter(el_object_id=selected_el_obj_id)
+                return render(request, 'del_el_obj.html', {'el_objs': el_objs,
+                                                              'last_selected': last_selected,
+                                                              'el_mtrs': el_mtrs,
+                                                              }
+                              )
+            except:
+                messages.success(request, "Оберіть електрифікований об'єкт для видалення")
+                return redirect('/')
 
         if request.POST.get('del'):
             print(request.POST.get('name'))
@@ -90,28 +92,34 @@ def add_el_obj(request):
     if not current_user.is_anonymous:
         if request.POST.get('but_add_el_obj'):
             print('but_add_el_obj')
-            el_objs = ElectrifiedObject.objects.filter(user_id=current_user.id)
-            last_selected = LastSelected.objects.get(user_id=current_user.id)
-            selected_el_obj_id = last_selected.el_obj_id
-            el_mtrs = ElectricityMeter.objects.filter(el_object_id=selected_el_obj_id)
+            try:
+                el_objs = ElectrifiedObject.objects.filter(user_id=current_user.id)
+                last_selected = LastSelected.objects.get(user_id=current_user.id)
+                selected_el_obj_id = last_selected.el_obj_id
+                el_mtrs = ElectricityMeter.objects.filter(el_object_id=selected_el_obj_id)
+                el_objs_form = ElectrifiedObjectForm()
+                #el_mtrs_form = ElectricityMeterForm()
 
-            el_objs_form = ElectrifiedObjectForm()
-            #el_mtrs_form = ElectricityMeterForm()
-
-            return render(request, 'add_el_obj.html', {'el_objs': el_objs,
-                                                       'last_selected': last_selected,
-                                                       'el_mtrs': el_mtrs,
-                                                       'el_objs_form': el_objs_form,
-                                                       #'el_mtrs_form': el_mtrs_form,
-                                                       }
-                          )
+                return render(request, 'add_el_obj.html', {'el_objs': el_objs,
+                                                           'last_selected': last_selected,
+                                                           'el_mtrs': el_mtrs,
+                                                           'el_objs_form': el_objs_form,
+                                                           #'el_mtrs_form': el_mtrs_form,
+                                                           }
+                              )
+            except:
+                el_objs_form = ElectrifiedObjectForm()
+                return render(request, 'add_el_obj.html', {'el_objs_form': el_objs_form,
+                                                           # 'el_mtrs_form': el_mtrs_form,
+                                                           }
+                              )
 
         if request.POST.get('add'):
             print('add')
             el_obj_form = ElectrifiedObjectForm(request.POST)
             if el_obj_form.is_valid():
-                print('valid')
-                if not ElectrifiedObject.objects.filter(name=el_obj_form.cleaned_data['name']).exists():
+                print('is_valid')
+                if not ElectrifiedObject.objects.filter(user=current_user, name=el_obj_form.cleaned_data['name']).exists():
                     print('yes')
                     print(ElectrifiedObject.objects.filter(name=el_obj_form.cleaned_data['name']).exists())
                     #print(ElectrifiedObject.objects.filter(name=el_obj_form.cleaned_data['name']))
@@ -179,19 +187,23 @@ def del_el_mtr(request):
     current_user = request.user
     if not current_user.is_anonymous:
         if request.POST.get('but_del_el_mtr'):
-            el_objs = ElectrifiedObject.objects.filter(user_id=current_user.id)
             last_selected = LastSelected.objects.get(user_id=current_user.id)
-            selected_el_obj_id = last_selected.el_obj_id
-            el_mtrs = ElectricityMeter.objects.filter(el_object_id=selected_el_obj_id)
+            if last_selected.el_mtr:
+                el_objs = ElectrifiedObject.objects.filter(user_id=current_user.id)
+                selected_el_obj_id = last_selected.el_obj_id
+                el_mtrs = ElectricityMeter.objects.filter(el_object_id=selected_el_obj_id)
 
-            el_mtr_form = ElectricityMeterForm()
+                el_mtr_form = ElectricityMeterForm()
 
-            return render(request, 'del_el_mtr.html', {'el_objs': el_objs,
-                                                       'last_selected': last_selected,
-                                                       'el_mtrs': el_mtrs,
-                                                       'el_mtr_form': el_mtr_form,
-                                                       }
-                          )
+                return render(request, 'del_el_mtr.html', {'el_objs': el_objs,
+                                                           'last_selected': last_selected,
+                                                           'el_mtrs': el_mtrs,
+                                                           'el_mtr_form': el_mtr_form,
+                                                           }
+                              )
+            else:
+                messages.success(request, "Оберіть лічильник для видалення")
+                return redirect('/')
 
         if request.POST.get('del'):
             print(request.POST.get('number'))
@@ -227,26 +239,33 @@ def add_el_mtr(request):
     if not current_user.is_anonymous:
         if request.POST.get('but_add_el_mtr'):
             print('but_add_el_mtr')
-            el_objs = ElectrifiedObject.objects.filter(user_id=current_user.id)
-            last_selected = LastSelected.objects.get(user_id=current_user.id)
-            selected_el_obj_id = last_selected.el_obj_id
-            el_mtrs = ElectricityMeter.objects.filter(el_object_id=selected_el_obj_id)
+            try:
+                el_objs = ElectrifiedObject.objects.filter(user_id=current_user.id)
+                last_selected = LastSelected.objects.get(user_id=current_user.id)
+                selected_el_obj_id = last_selected.el_obj_id
+                el_mtrs = ElectricityMeter.objects.filter(el_object_id=selected_el_obj_id)
 
-            el_mtr_form = ElectricityMeterForm()
+                el_mtr_form = ElectricityMeterForm()
 
-            return render(request, 'add_el_mtr.html', {'el_objs': el_objs,
-                                                       'last_selected': last_selected,
-                                                       'el_mtrs': el_mtrs,
-                                                       'el_mtr_form': el_mtr_form,
-                                                       }
-                          )
+                return render(request, 'add_el_mtr.html', {'el_objs': el_objs,
+                                                           'last_selected': last_selected,
+                                                           'el_mtrs': el_mtrs,
+                                                           'el_mtr_form': el_mtr_form,
+                                                           }
+                              )
+            except:
+                messages.success(request, "Оберіть електрифікований об'єкт")
+                return redirect('/')
 
         if request.POST.get('add'):
             print('add')
             el_mtr_form = ElectricityMeterForm(request.POST)
             if el_mtr_form.is_valid():
                 print('valid')
-                if not ElectricityMeter.objects.filter(number=el_mtr_form.cleaned_data['number']).exists():
+                print(ElectricityMeter.objects.filter(el_object=el_mtr_form.cleaned_data['el_object']))
+                if not ElectricityMeter.objects.filter(el_object=el_mtr_form.cleaned_data['el_object'],
+                                                       number=el_mtr_form.cleaned_data['number']
+                                                       ).exists():
                     print('yes')
                     print(ElectricityMeter.objects.filter(number=el_mtr_form.cleaned_data['number']).exists())
                     #print(ElectrifiedObject.objects.filter(name=el_obj_form.cleaned_data['name']))

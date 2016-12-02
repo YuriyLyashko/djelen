@@ -11,7 +11,15 @@
         </p>
         <p>
             <input type="text" name="number">
-            {{ el_mtr_form.el_object }}
+            <select name="el_object" class="selects">
+                <option>
+                    <span class="text_enter_el_obj">Оберіть електрифікований об'єкт!</span>
+                </option>
+            <option disabled> ----- </option>
+                {% for eo in el_objs %}
+                    <option value={{ eo.id }}> {{ eo.name }} </option>
+                {% endfor %}
+        </select>
         </p>
 
         <input type="submit" name="del"  value="Видалити">
