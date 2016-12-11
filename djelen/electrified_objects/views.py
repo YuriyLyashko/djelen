@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
 
 
@@ -29,7 +29,7 @@ def change_el_obj(request):
             print(request.POST.get('save'))
             el_obj_form = ElectrifiedObjectForm(request.POST)
             if el_obj_form.is_valid():
-                last_selected = LastSelected.objects.get(user_id=current_user.id)
+                last_selected = LastSelected.objects.get(user=current_user)
                 selected_el_obj = last_selected.el_obj
                 selected_el_obj.name = el_obj_form.cleaned_data['name']
                 selected_el_obj.address = el_obj_form.cleaned_data['address']
@@ -51,8 +51,8 @@ def del_el_obj(request):
     if not current_user.is_anonymous:
         if request.POST.get('but_del_el_obj'):
             try:
-                last_selected = LastSelected.objects.get(user_id=current_user.id)
-                el_objs = ElectrifiedObject.objects.filter(user_id=current_user.id)
+                last_selected = LastSelected.objects.get(user=current_user)
+                el_objs = ElectrifiedObject.objects.filter(user=current_user)
                 selected_el_obj_id = last_selected.el_obj_id
                 el_mtrs = ElectricityMeter.objects.filter(el_object_id=selected_el_obj_id)
                 return render(request, 'del_el_obj.html', {'el_objs': el_objs,
@@ -165,16 +165,23 @@ def change_el_mtr(request):
                 return redirect('/')
 
         if request.POST.get('save'):
-            print(request.POST.get('save'))
+            print('save')
             el_mtr_form = ElectricityMeterForm(request.POST)
+            print(el_mtr_form)
             if el_mtr_form.is_valid():
-                last_selected = LastSelected.objects.get(user_id=current_user.id)
+                last_selected = LastSelected.objects.get(user=current_user)
                 selected_el_mtr = last_selected.el_mtr
                 selected_el_mtr.number = el_mtr_form.cleaned_data['number']
+                if selected_el_mtr.el_object != el_mtr_form.cleaned_data['el_object']:
+                    last_selected.el_mtr = None
+                    last_selected.save()
                 selected_el_mtr.el_object = el_mtr_form.cleaned_data['el_object']
                 selected_el_mtr.save()
                 messages.success(request, "Лічильник відредаговано")
                 return redirect('/')
+            else:
+                messages.success(request, "Введено не коректні дані")
+                return reverse('change_el_mtr')
 
         if request.POST.get('cancel'):
             print(request.POST.get('cancel'))

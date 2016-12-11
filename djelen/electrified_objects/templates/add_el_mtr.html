@@ -1,29 +1,33 @@
 {%extends 'index.html'%}
 {%block content%}
     <h4> Створення лічильника </h4>
+
     <form method="post">
         {% csrf_token %}
-        <select name="el_object" class="selects">
-            {% if last_selected %}
-                <option value={{ last_selected.el_obj.id }} selected>
-                    {{ last_selected.el_obj.name }}
-                </option>
-            {% else %}
-                <option>
-                    <span class="text_enter_el_obj">Оберіть електрифікований об'єкт!</span>
-                </option>
-            {% endif %}
-            <option disabled> ----- </option>
-                {% for eo in el_objs %}
-                    <option value={{ eo.id }}> {{ eo.name }} </option>
-                {% endfor %}
-        </select>
-        {{ el_mtr_form.number }}
+        <p>Оберіть електрифікований об'єкт, до якого буде належати лічильник:
+            <select name="el_object">
+                {% if last_selected %}
+                    <option value={{ last_selected.el_obj.id }} selected>
+                        {{ last_selected.el_obj.name }}
+                    </option>
+                {% else %}
+                    <option>
+                        <span class="text_enter_el_obj">Оберіть електрифікований об'єкт!</span>
+                    </option>
+                {% endif %}
+                <option disabled> ----- </option>
+                    {% for eo in el_objs %}
+                        <option value={{ eo.id }}> {{ eo.name }} </option>
+                    {% endfor %}
+            </select>
+        </p>
+        <p>
+            Ведіть номер лічильника:
+            {{ el_mtr_form.number }}
+        </p>
         <input type="submit" name="add"  value="Створити">
-    </form>
-    <form method="POST">
-        {% csrf_token %}
         <input type="submit" name="cancel" value="Скасувати">
     </form>
+
 
 {%endblock%}

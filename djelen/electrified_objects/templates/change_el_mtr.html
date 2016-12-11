@@ -10,12 +10,18 @@
         <p>
             Електрифікований об'єкт, на якому встановлено лічильник:
             <select name="el_object" class="selects">
-                <option>
-                    <span class="text_enter_el_obj">Оберіть електрифікований об'єкт!</span>
-                </option>
-            <option disabled> ----- </option>
-                {% for eo in el_objs %}
-                    <option value={{ eo.id }}> {{ eo.name }} </option>
+                {% if last_selected %}
+                    <option value={{ last_selected.el_obj.id }} selected>
+                        {{ last_selected.el_obj.name }}
+                    </option>
+                {% else %}
+                    <option>
+                        <span class="text_enter_el_obj">Оберіть електрифікований об'єкт!</span>
+                    </option>
+                {% endif %}
+                <option disabled> ----- </option>
+                    {% for eo in el_objs %}
+                        <option value={{ eo.id }}> {{ eo.name }} </option>
                 {% endfor %}
         </select>
         </p>

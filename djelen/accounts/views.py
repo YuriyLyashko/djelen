@@ -27,6 +27,8 @@ def registration(request):
             except IntegrityError:
                 print('!!!')
                 messages.success(request, "Користувач з таким логіном вже існує!")
+        else:
+            messages.success(request, 'Введено не коректні дані')
     print('render', user_form)
     return render(request, 'registration.html', {'user_form': user_form, 'login_form': login_form})
 

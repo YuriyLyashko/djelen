@@ -26,6 +26,15 @@
                             <input type="submit" name="but_register" value="Реєстрація">
                         </form>
                     </div>
+                    {% if messages %}
+                        <div class="header_msgs">
+                            <ul class="messages">
+                                {% for message in messages %}
+                                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }} </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
 
                 {% else %}
 
@@ -46,7 +55,7 @@
                         {% if el_objs %}
                             <form action="{% url 'index' %}" method="post">
                                 {% csrf_token %}
-                                <select class="selects" name="select_el_obj" onchange="this.form.submit()">
+                                <select class="selects" name="selected_el_obj_id" onchange="this.form.submit()">
                                     {% if last_selected %}
                                         <option value={{ last_selected.el_obj.id }} selected>
                                             {{ last_selected.el_obj.name }}
@@ -86,7 +95,7 @@
                             {% if el_mtrs %}
                                 <form action="{% url 'index' %}" method="post">
                                     {% csrf_token %}
-                                    <select class="selects" name="select_el_mtr" onchange="this.form.submit()">
+                                    <select class="selects" name="selected_el_mtr_id" onchange="this.form.submit()">
                                         <option value={{ last_selected.el_mtr.id }} selected>
                                             {% if last_selected.el_mtr %}
                                                 {{ last_selected.el_mtr.number }}
@@ -159,6 +168,7 @@
             {% endif %}
             <h4>{{ texts.сentral_title }}</h4>
             <h5>{{ texts.header_of_block_tariffs }}</h5>
+
 
 
 
