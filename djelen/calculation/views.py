@@ -6,21 +6,6 @@ from electrified_objects.forms import ElectrifiedObjectForm, SelectedElObjForm, 
 
 from .forms import Texts
 
-def get_data_for_select(user):
-    print('get_data_for_select')
-    try:
-        last_selected = LastSelected.objects.get(user=user)
-        selected_el_obj = last_selected.el_obj
-        el_mtrs = ElectricityMeter.objects.filter(el_object_id=selected_el_obj)
-    except:
-        last_selected = None
-        selected_el_obj = None
-        el_mtrs = None
-    finally:
-        el_objs = ElectrifiedObject.objects.filter(user=user)
-        return last_selected, el_objs, selected_el_obj, el_mtrs
-
-
 # Create your views here.
 def index(request):
     print('index')
@@ -31,7 +16,7 @@ def index(request):
     if current_user.is_anonymous:
         return render(request, 'index.html', {'login_form': login_form, 'texts': texts, })
     try:
-        last_selected, el_objs, selected_el_obj, el_mtrs = get_data_for_select(current_user)
+        last_selected, el_objs, selected_el_obj, el_mtrs = ElectrifiedObject.get_data_for_select(current_user)
         return render(request, 'index.html', {'login_form': login_form,
                                               'el_objs': el_objs,
                                               'last_selected': last_selected,
@@ -65,7 +50,7 @@ def index(request):
                     last_selected = LastSelected(user=current_user, el_obj=selected_el_obj,)
                 finally:
                     last_selected.save()
-                    last_selected, el_objs, selected_el_obj, el_mtrs = get_data_for_select(current_user)
+                    last_selected, el_objs, selected_el_obj, el_mtrs = ElectrifiedObject.get_data_for_select(current_user)
                     return render(request, 'index.html', {'login_form': login_form,
                                                           'el_objs': el_objs,
                                                           'last_selected': last_selected,

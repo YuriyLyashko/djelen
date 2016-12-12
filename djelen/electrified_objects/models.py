@@ -10,6 +10,21 @@ class ElectrifiedObject(models.Model):
     def __str__(self):
         return "Назва електрифікованого об'єкту: " + str(self.name)
 
+    @staticmethod
+    def get_data_for_select(user):
+        print('get_data_for_select')
+        try:
+            last_selected = LastSelected.objects.get(user=user)
+            selected_el_obj = last_selected.el_obj
+            el_mtrs = ElectricityMeter.objects.filter(el_object_id=selected_el_obj)
+        except:
+            last_selected = None
+            selected_el_obj = None
+            el_mtrs = None
+        finally:
+            el_objs = ElectrifiedObject.objects.filter(user=user)
+            return last_selected, el_objs, selected_el_obj, el_mtrs
+
 
 class ElectricityMeter(models.Model):
     number = models.CharField("Номер лічильника", max_length=255)
