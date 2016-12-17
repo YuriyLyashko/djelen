@@ -16,12 +16,8 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.conf.urls import url, include
-from calculation.views import index
+#from .views import update_tariffs
 
-urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^$', index, name='index'),
-    url(r'^accounts/', include('accounts.urls')),
-    url(r'^electrified_objects/', include('electrified_objects.urls')),
-    #url(r'^update_tariffs/', include('tariffs.urls')),
-]
+#urlpatterns = [
+#    url(r'^$', update_tariffs, name='update_tariffs'),
+#]

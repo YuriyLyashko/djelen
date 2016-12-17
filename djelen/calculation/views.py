@@ -32,6 +32,10 @@ def index(request):
 
 
     if current_user.is_anonymous:
+        if request.POST.get('update_tariffs'):
+            print('update_tariffs')
+
+
         return render(request, 'index.html', {'login_form': login_form,
                                               'texts': texts,
                                               'tariffs_forms': tariffs_forms,

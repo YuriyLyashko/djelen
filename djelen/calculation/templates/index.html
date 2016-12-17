@@ -164,9 +164,18 @@
                 <div class="calculation_tariffs block">
                     <div class="tariffs_header block">{{ texts.header_of_block_tariffs }}</div>
                     <div class="tariffs_date_saving block">
-                        {{ texts.pointer_date_saving_tariffs }} dd-mm-yyyy
-                        <p><input class="button" type="submit" name=""  value="Оновити тарифи &#10; через інтернет"></p>
-                        <p><input class="button" type="submit" name=""  value="Використовувати ці тарифи &#10; наступного разу"></p>
+                        {{ texts.pointer_date_saving_tariffs }} {{ tariffs.date }}
+                        {% if user.is_anonymous %}
+                            <form method="POST">
+                                {% csrf_token %}
+                                <input class="button" type="submit" name="update_tariffs" value="Оновити тарифи &#10; через інтернет">
+                            </form>
+                        {% else %}
+                            <form action="{% url 'update_tariffs' %}" method="GET">
+                                <input class="button" type="submit" name="update_tariffs" value="Оновити тарифи &#10; через інтернет">
+                            </form>
+                            <p><input class="button" type="submit" name=""  value="Використовувати ці тарифи &#10; наступного разу"></p>
+                        {% endif %}
                     </div>
                     <div class="tariffs block">
                         <p>

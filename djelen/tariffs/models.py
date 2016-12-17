@@ -49,5 +49,5 @@ class Tariffs(models.Model):
         self.tariff_1 = 0.5
         self.tariff_2 = 1
         self.tariff_3 = 2
-        self.date = 2016-12-17
+        self.date = '2016-12-17'
         #return tariff_1_limit, tariff_2_limit, tariff_1, tariff_2, tariff_3, date
