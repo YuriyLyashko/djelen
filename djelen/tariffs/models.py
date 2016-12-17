@@ -16,7 +16,7 @@ class Tariffs(models.Model):
     def __str__(self):
         return "Тарифи: {}, {}, {}".format(self.tarrif_limit_1, self.tarrif_limit_2, self.tarrif_limit_3)
 
-    def get_tariffs_inet(self):
+    def update_tariffs(self):
         '''
         Отримання тарифів з сайту Київенерго
         '''

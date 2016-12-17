@@ -34,6 +34,12 @@ def index(request):
     if current_user.is_anonymous:
         if request.POST.get('update_tariffs'):
             print('update_tariffs')
+            tariffs.update_tariffs()
+            tariffs_forms.initial['tariff_1_limit'] = tariffs.tariff_1_limit
+            tariffs_forms.initial['tariff_2_limit'] = tariffs.tariff_2_limit
+            tariffs_forms.initial['tariff_1'] = tariffs.tariff_1
+            tariffs_forms.initial['tariff_2'] = tariffs.tariff_2
+            tariffs_forms.initial['tariff_3'] = tariffs.tariff_3
 
 
         return render(request, 'index.html', {'login_form': login_form,
