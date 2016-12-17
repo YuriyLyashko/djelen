@@ -174,15 +174,19 @@
                             {{ texts.pointer_kwh_month }} {{ texts.pointer_including }} {{ tariffs_forms.tariff_1 }}
                         </p>
                         <p>
-                            {{ texts.pointer_tariff_limit_over }} 100
+                            {{ texts.pointer_tariff_limit_over }} {{ tariffs.tariff_1_limit }}
                             {{ texts.pointer_kwh }} {{ tariffs_forms.tariff_2_limit }}
                             {{ texts.pointer_kwh_month }} {{ texts.pointer_including }} {{ tariffs_forms.tariff_2 }}
                         </p>
                         <p>
-                            {{ texts.pointer_tariff_limit_over }} 600
+                            {{ texts.pointer_tariff_limit_over }} {{ tariffs.tariff_2_limit }}
                             {{ texts.pointer_kwh_month }} {{ tariffs_forms.tariff_3 }}
                         </p>
-
+                        {{ tariffs.user }}
+                        {{ tariffs.tariff_1 }}
+                        {{ tariffs.tariff_2 }}
+                        {{ tariffs.tariff_3 }}
+                        {{ tariffs.date }}
                     </div>
 
                 </div>

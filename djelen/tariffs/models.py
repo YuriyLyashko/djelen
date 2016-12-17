@@ -44,8 +44,8 @@ class Tariffs(models.Model):
 
     #@staticmethod
     def get_start_tariffs(self):
-        self.tariff_1_limit = 0
-        self.tariff_2_limit = 600
+        self.tariff_1_limit = 100
+        self.tariff_2_limit = 500
         self.tariff_1 = 0.5
         self.tariff_2 = 1
         self.tariff_3 = 2
