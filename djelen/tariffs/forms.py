@@ -24,3 +24,10 @@ class TariffsForms(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+    def update_tarifs_forms(self, tariffs):
+        self.initial['tariff_1_limit'] = tariffs.tariff_1_limit
+        self.initial['tariff_2_limit'] = tariffs.tariff_2_limit
+        self.initial['tariff_1'] = tariffs.tariff_1
+        self.initial['tariff_2'] = tariffs.tariff_2
+        self.initial['tariff_3'] = tariffs.tariff_3

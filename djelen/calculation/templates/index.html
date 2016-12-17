@@ -171,7 +171,8 @@
                                 <input class="button" type="submit" name="update_tariffs" value="Оновити тарифи &#10; через інтернет">
                             </form>
                         {% else %}
-                            <form action="{% url 'update_tariffs' %}" method="GET">
+                            <form method="POST">
+                                {% csrf_token %}
                                 <input class="button" type="submit" name="update_tariffs" value="Оновити тарифи &#10; через інтернет">
                             </form>
                             <p><input class="button" type="submit" name=""  value="Використовувати ці тарифи &#10; наступного разу"></p>
