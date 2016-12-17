@@ -6,10 +6,16 @@ class Texts:
     pointer_date_saving_tariffs = "Дата збереження тарифів:"
 
     header_of_block_tariffs = "Діючі тарифи на електроенергію, грн. за 1 кВт∙год."
-    pointer_tariff_1_in = "за обсяг, спожитий до               кВт∙год електроенергії на місяць (включно):"
+    pointer_tariff_limit_to = "за обсяг, спожитий до"
+    pointer_kwh_month = "кВт∙год електроенергії на місяць "
+    pointer_including = '(включно):'
+    pointer_tariff_limit_over = "за обсяг, спожитий понад"
+    pointer_kwh = 'кВт∙год до'
+
     pointer_tariff_2_in = "за обсяг, спожитий понад               кВт∙год " \
                           "до               кВт∙год електроенергії на місяць (включно):"
     pointer_tariff_3_in = "за обсяг, спожитий понад               кВт∙год електроенергії на місяць:"
+
 
     header_of_block_consumption = "Спожита електроенергія."
     date_meter_tariffs = "Введіть дату зняття показів:"

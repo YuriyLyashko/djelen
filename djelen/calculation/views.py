@@ -5,6 +5,7 @@ from electrified_objects.models import ElectrifiedObject, ElectricityMeter, Read
 from electrified_objects.forms import ElectrifiedObjectForm, SelectedElObjForm, SelectedElMtrForm
 
 from .forms import Texts
+from tariffs.forms import TariffsForms
 
 # Create your views here.
 def index(request):
@@ -13,8 +14,10 @@ def index(request):
     current_user = request.user
 
     texts = Texts()
+    tariffs_forms = TariffsForms()
+
     if current_user.is_anonymous:
-        return render(request, 'index.html', {'login_form': login_form, 'texts': texts, })
+        return render(request, 'index.html', {'login_form': login_form, 'texts': texts, 'tariffs_forms': tariffs_forms})
     try:
         last_selected, el_objs, selected_el_obj, el_mtrs = ElectrifiedObject.get_data_for_select(current_user)
         return render(request, 'index.html', {'login_form': login_form,
@@ -22,11 +25,13 @@ def index(request):
                                               'last_selected': last_selected,
                                               'el_mtrs': el_mtrs,
                                               'texts': texts,
+                                              'tariffs_forms': tariffs_forms,
                                               }
                       )
     except:
         return render(request, 'index.html', {'login_form': login_form,
                                               'texts': texts,
+                                              'tariffs_forms': tariffs_forms,
                                               }
                       )
     finally:
@@ -56,6 +61,7 @@ def index(request):
                                                           'last_selected': last_selected,
                                                           'el_mtrs': el_mtrs,
                                                           'texts': texts,
+                                                          'tariffs_forms': tariffs_forms,
                                                           }
                                   )
 
@@ -79,5 +85,6 @@ def index(request):
                                                           'last_selected': last_selected,
                                                           'el_mtrs': el_mtrs,
                                                           'texts': texts,
+                                                          'tariffs_forms': tariffs_forms,
                                                           }
                                   )

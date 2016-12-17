@@ -138,36 +138,55 @@
 
             </div>
         </div>
-
-        <div class="column1 block column">.column1 </div>
-
-        <div class="column3 block column">.column3 </div>
-
         <div class="column2 block column">
             {%block content%}
+            <div class="object_info block"> object_info
+                {% if user.is_anonymous %}
+                    <p class="text_authenticate">
+                        Щоб отримати можливість зберігати розрахунки, необхідно автентифікуватися.
+                    </p>
+                {% else %}
+                    {% if last_selected.el_obj %}
+                        <p class="text_el_obj_entered"> {{ last_selected.el_obj }}</p>
+                        <p class="text_el_obj_entered"> Адреса: {{ last_selected.el_obj.address }}</p>
+                    {% else %}
+                        <p class="text_enter_el_obj"> Оберіть електрифікований об'єкт! </p>
+                    {% endif %}
+                    {% if last_selected.el_mtr %}
+                        <p class="text_el_mtr_entered"> {{ last_selected.el_mtr }} </p>
+                    {% else %}
+                        <p class="text_enter_el_mtr"> Оберіть лічильник! </p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="calculation block"> calculation
+                <div class="calculation_header block">{{ texts.сentral_title }}</div>
+                <div class="calculation_tariffs block">
+                    <div class="tariffs_header block">{{ texts.header_of_block_tariffs }}</div>
+                    <div class="tariffs_date_saving block">
+                        {{ texts.pointer_date_saving_tariffs }} dd-mm-yyyy
+                        <p><input class="button" type="submit" name=""  value="Оновити тарифи &#10; через інтернет"></p>
+                        <p><input class="button" type="submit" name=""  value="Використовувати ці тарифи &#10; наступного разу"></p>
+                    </div>
+                    <div class="tariffs block">
+                        <p>
+                            {{ texts.pointer_tariff_limit_to }} {{ tariffs_forms.tariff_1_limit }}
+                            {{ texts.pointer_kwh_month }} {{ texts.pointer_including }} {{ tariffs_forms.tariff_1 }}
+                        </p>
+                        <p>
+                            {{ texts.pointer_tariff_limit_over }} 100
+                            {{ texts.pointer_kwh }} {{ tariffs_forms.tariff_2_limit }}
+                            {{ texts.pointer_kwh_month }} {{ texts.pointer_including }} {{ tariffs_forms.tariff_2 }}
+                        </p>
+                        <p>
+                            {{ texts.pointer_tariff_limit_over }} 600
+                            {{ texts.pointer_kwh_month }} {{ tariffs_forms.tariff_3 }}
+                        </p>
 
+                    </div>
 
-            {% if user.is_anonymous %}
-                <p class="text_authenticate">
-                    Щоб отримати можливість зберігати розрахунки, необхідно автентифікуватися.
-                </p>
-            {% else %}
-
-            {% if last_selected.el_obj %}
-                <p class="text_el_obj_entered"> {{ last_selected.el_obj }}</p>
-                <p class="text_el_obj_entered"> Адреса: {{ last_selected.el_obj.address }}</p>
-            {% else %}
-                <p class="text_enter_el_obj"> Оберіть електрифікований об'єкт! </p>
-            {% endif %}
-
-            {% if last_selected.el_mtr %}
-                <p class="text_el_mtr_entered"> {{ last_selected.el_mtr }} </p>
-            {% else %}
-                <p class="text_enter_el_mtr"> Оберіть лічильник! </p>
-            {% endif %}
-            {% endif %}
-            <h4>{{ texts.сentral_title }}</h4>
-            <h5>{{ texts.header_of_block_tariffs }}</h5>
+                </div>
+            </div>
 
 
 
