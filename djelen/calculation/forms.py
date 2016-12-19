@@ -12,10 +12,6 @@ class Texts:
     pointer_tariff_limit_over = "за обсяг, спожитий понад"
     pointer_kwh = 'кВт∙год до'
 
-    pointer_tariff_2_in = "за обсяг, спожитий понад               кВт∙год " \
-                          "до               кВт∙год електроенергії на місяць (включно):"
-    pointer_tariff_3_in = "за обсяг, спожитий понад               кВт∙год електроенергії на місяць:"
-
 
     header_of_block_consumption = "Спожита електроенергія."
     date_meter_tariffs = "Введіть дату зняття показів:"

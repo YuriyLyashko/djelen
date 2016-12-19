@@ -33,21 +33,16 @@ class Tariffs(models.Model):
             self.tariff_1 = (float(tariffs_all[0]) / 100)
             self.tariff_2 = (float(tariffs_all[1]) / 100)
             self.tariff_3 = (float(tariffs_all[2]) / 100)
-            #message_answer.set('{}'.format(message_tariffs_received_from_inet))
 
         except urllib.error.URLError:
             print('URLError')
-            #show_error()
         except ValueError:
             print('ValueError')
-            #show_error()
 
-    #@staticmethod
     def get_start_tariffs(self):
-        self.tariff_1_limit = 100
-        self.tariff_2_limit = 500
+        self.tariff_1_limit = 50
+        self.tariff_2_limit = 100
         self.tariff_1 = 0.5
         self.tariff_2 = 1
         self.tariff_3 = 2
         self.date = '2016-12-17'
-        #return tariff_1_limit, tariff_2_limit, tariff_1, tariff_2, tariff_3, date

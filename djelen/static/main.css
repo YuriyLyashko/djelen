@@ -108,13 +108,20 @@ body {
     margin: 9px;
 }
 
+.calculation_tariffs {
+    height: 210px
+}
 
-.tariffs_header, .tariffs {
+.calculation_el_meter, .calculation_count_out {
+    height: 265px
+}
+
+.tariffs_header, .tariffs, .el_meter_header, .el_meter, .count_out_header, .count_out {
     float: left;
     width: 77%;
 }
 
-.tariffs_date_saving {
+.tariffs_date_saving, .el_meter_count, .count_out_right {
     float: right;
     width: 19%;
 }
@@ -127,6 +134,12 @@ body {
 .input_tariff {
     float: right;
 }
+
+.input_date {
+    float: right;
+    width: 65px;
+}
+
 
 .button {
     width: 100%;

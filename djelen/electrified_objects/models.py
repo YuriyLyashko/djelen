@@ -35,8 +35,10 @@ class ElectricityMeter(models.Model):
 
 
 class Readings(models.Model):
-    previous_readings = models.PositiveIntegerField("Попередні покази лічильника")
-    current_readings = models.PositiveIntegerField("Поточні покази лічильника")
+    date_readings = models.DateField(null=True)
+    previous_readings = models.PositiveIntegerField(null=True)
+    current_readings = models.PositiveIntegerField(null=True)
+    consumed = models.PositiveIntegerField(null=True)
     electricity_meter = models.ForeignKey(ElectricityMeter)
 
     def __str__(self):

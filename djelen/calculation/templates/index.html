@@ -192,14 +192,47 @@
                             {{ texts.pointer_tariff_limit_over }} {{ tariffs.tariff_2_limit }}
                             {{ texts.pointer_kwh_month }} {{ tariffs_forms.tariff_3 }}
                         </p>
-                        {{ tariffs.user }}
-                        {{ tariffs.tariff_1 }}
-                        {{ tariffs.tariff_2 }}
-                        {{ tariffs.tariff_3 }}
-                        {{ tariffs.date }}
                     </div>
-
                 </div>
+                <div class="calculation_el_meter block">
+                    <div class="el_meter_header block">
+                        {{ texts.header_of_block_consumption }}
+                    </div>
+                    <div class="el_meter block">
+                        <p>{{ texts.date_meter_tariffs }} {{ readings_forms.date_readings }}</p>
+                        <p>{{ texts.previous_shows }} {{ readings_forms.previous_readings }}</p>
+                        <p>{{ texts.current_shows }} {{ readings_forms.current_readings }}</p>
+                        <p>{{ texts.text_or }}</p>
+                        <p>{{ texts.amount_of_electricity }} {{ readings_forms.consumed }}</p>
+                    </div>
+                    <div class="el_meter_count block">
+                        el_meter_count
+                    </div>
+                </div>
+                <div class="calculation_count_out block">
+                    <div class="count_out_header block">
+                        {{ texts.header_of_block_cost_calculation }}
+                    </div>
+                    <div class="count_out block">
+                        <p>
+                            {{ texts.pointer_tariff_limit_to }} {{ tariffs.tariff_1_limit }}
+                            {{ texts.pointer_kwh_month }} {{ texts.pointer_including }}
+                        </p>
+                        <p>
+                            {{ texts.pointer_tariff_limit_over }} {{ tariffs.tariff_1_limit }}
+                            {{ texts.pointer_kwh }} {{ tariffs.tariff_2_limit }}
+                            {{ texts.pointer_kwh_month }} {{ texts.pointer_including }}
+                        </p>
+                        <p>
+                            {{ texts.pointer_tariff_limit_over }} {{ tariffs.tariff_2_limit }}
+                            {{ texts.pointer_kwh_month }}
+                        </p>
+                    </div>
+                    <div class="count_out_right block">
+                        count_out_right
+                    </div>
+                </div>
+
             </div>
 
 
@@ -209,7 +242,13 @@
             {% endblock %}
         </div>
 
-        <div class="footer block">.footer</div>
+        <div class="footer block">.footer
+            {{ tariffs.user }}
+            {{ tariffs.tariff_1 }}
+            {{ tariffs.tariff_2 }}
+            {{ tariffs.tariff_3 }}
+            {{ tariffs.date }}
+        </div>
     </body>
 </html>
 

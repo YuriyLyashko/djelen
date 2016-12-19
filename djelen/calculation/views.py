@@ -2,7 +2,7 @@ from django.shortcuts import render
 from accounts.forms import RegisterUserForm, Login
 
 from electrified_objects.models import ElectrifiedObject, ElectricityMeter, Readings, LastSelected
-from electrified_objects.forms import ElectrifiedObjectForm, SelectedElObjForm, SelectedElMtrForm
+from electrified_objects.forms import ElectrifiedObjectForm, SelectedElObjForm, SelectedElMtrForm, ReadingsForms
 
 from .forms import Texts
 from tariffs.forms import TariffsForms
@@ -17,6 +17,9 @@ def index(request):
     texts = Texts()
 
     tariffs = Tariffs()
+
+    readings = Readings()
+
     try:
         Tariffs.objects.get(user=current_user)
     except:
@@ -29,6 +32,12 @@ def index(request):
                                           'tariff_3': tariffs.tariff_3
                                           }
                                  )
+    readings_forms = ReadingsForms(initial={'date_readings': tariffs.date,
+                                            'previous_readings': 0,
+                                            'current_readings': 0,
+                                            'consumed': 0,
+                                            }
+                                   )
 
 
     if current_user.is_anonymous:
@@ -41,7 +50,10 @@ def index(request):
         return render(request, 'index.html', {'login_form': login_form,
                                               'texts': texts,
                                               'tariffs_forms': tariffs_forms,
-                                              'tariffs': tariffs
+                                              'tariffs': tariffs,
+                                              'readings': readings,
+                                              'readings_forms': readings_forms,
+
                                               }
                       )
     try:
