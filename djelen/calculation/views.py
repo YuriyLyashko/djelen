@@ -8,6 +8,8 @@ from .forms import Texts
 from tariffs.forms import TariffsForms
 from tariffs.models import Tariffs
 
+from .models import Calculation
+
 # Create your views here.
 def index(request):
     print('index')
@@ -19,6 +21,8 @@ def index(request):
     tariffs = Tariffs()
 
     readings = Readings()
+
+    calculation = Calculation()
 
     try:
         Tariffs.objects.get(user=current_user)
@@ -53,7 +57,7 @@ def index(request):
                                               'tariffs': tariffs,
                                               'readings': readings,
                                               'readings_forms': readings_forms,
-
+                                              'calculation': calculation,
                                               }
                       )
     try:
