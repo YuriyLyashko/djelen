@@ -13,3 +13,8 @@ class Calculation(models.Model):
     cost_tariff_3 = models.DecimalField(max_digits=5, decimal_places=2)
     cost_total = models.DecimalField(max_digits=5, decimal_places=2)
     el_meter = models.ManyToManyField(ElectricityMeter)
+
+    def get_calculated_data(self, readings):
+        print('get_calculated_data')
+        self.amount_electricity = readings.current_readings - readings.previous_readings
+        #if 0 <= self.amount_electricity <= temp_readings.

@@ -44,11 +44,29 @@ def index(request):
                                    )
 
 
+
+
+
+
     if current_user.is_anonymous:
         if request.POST.get('update_tariffs'):
             print('update_tariffs')
             tariffs.update_tariffs()
             tariffs_forms.update_tarifs_forms(tariffs)
+
+        if request.POST.get('calculate'):
+            print('calculate')
+            print(request.POST)
+            readings_forms = ReadingsForms(request.POST)
+            if readings_forms.is_valid():
+                print('VaLiD')
+                readings = Readings(date_readings=readings_forms.cleaned_data['date_readings'],
+                                         previous_readings=readings_forms.cleaned_data['previous_readings'],
+                                         current_readings=readings_forms.cleaned_data['current_readings'],
+                                         consumed=readings_forms.cleaned_data['consumed']
+                                         )
+                calculation.get_calculated_data(readings)
+                print(calculation.amount_electricity)
 
 
         return render(request, 'index.html', {'login_form': login_form,
@@ -60,6 +78,15 @@ def index(request):
                                               'calculation': calculation,
                                               }
                       )
+
+
+
+
+
+
+
+
+
     try:
         last_selected, el_objs, selected_el_obj, el_mtrs = ElectrifiedObject.get_data_for_select(current_user)
         return render(request, 'index.html', {'login_form': login_form,

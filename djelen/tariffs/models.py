@@ -8,9 +8,9 @@ class Tariffs(models.Model):
     user = models.OneToOneField(User)
     tariff_1_limit = models.PositiveIntegerField()
     tariff_2_limit = models.PositiveIntegerField()
-    tariff_1 = models.FloatField()
-    tariff_2 = models.FloatField()
-    tariff_3 = models.FloatField()
+    tariff_1 = models.DecimalField(max_digits=7, decimal_places=2)
+    tariff_2 = models.DecimalField(max_digits=7, decimal_places=2)
+    tariff_3 = models.DecimalField(max_digits=7, decimal_places=2)
     date = models.DateField()
 
     def __str__(self):
