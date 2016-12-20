@@ -5,7 +5,8 @@ class TariffsForms(forms.Form):
                                         widget=forms.NumberInput(attrs={'class': 'input'})
                                         )
     tariff_1 = forms.DecimalField(min_value=0,
-                                  decimal_places=4,
+                                  max_digits=7,
+                                  decimal_places=3,
                                   widget=forms.NumberInput(attrs={'class': 'input_tariff input'})
                                   )
 
@@ -13,12 +14,14 @@ class TariffsForms(forms.Form):
                                         widget=forms.NumberInput(attrs={'class': 'input'})
                                         )
     tariff_2 = forms.DecimalField(min_value=0,
-                                  decimal_places=4,
+                                  max_digits=7,
+                                  decimal_places=3,
                                   widget=forms.NumberInput(attrs={'class': 'input_tariff input'})
                                   )
 
     tariff_3 = forms.DecimalField(min_value=0,
-                                  decimal_places=4,
+                                  max_digits=7,
+                                  decimal_places=3,
                                   widget=forms.NumberInput(attrs={'class': 'input_tariff input'})
                                   )
 

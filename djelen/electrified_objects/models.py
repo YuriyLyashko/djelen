@@ -45,6 +45,8 @@ class Readings(models.Model):
         return "Покази лічильника: {}, {}".format(self.previous_readings, self.current_readings)
 
 
+
+
 class LastSelected(models.Model):
     user = models.OneToOneField(User)
     el_obj = models.OneToOneField(ElectrifiedObject)

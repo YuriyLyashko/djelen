@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from datetime import *
+
 from accounts.forms import RegisterUserForm, Login
 
 from electrified_objects.models import ElectrifiedObject, ElectricityMeter, Readings, LastSelected
@@ -13,6 +15,7 @@ from .models import Calculation
 # Create your views here.
 def index(request):
     print('index')
+    date_now = datetime.strftime(datetime.now(), "%Y-%m-%d")  # %H:%M:%S
     login_form = Login()
     current_user = request.user
 
@@ -36,7 +39,7 @@ def index(request):
                                           'tariff_3': tariffs.tariff_3
                                           }
                                  )
-    readings_forms = ReadingsForms(initial={'date_readings': tariffs.date,
+    readings_forms = ReadingsForms(initial={'date_readings': date_now,
                                             'previous_readings': 0,
                                             'current_readings': 0,
                                             'consumed': 0,
@@ -58,15 +61,28 @@ def index(request):
             print('calculate')
             print(request.POST)
             readings_forms = ReadingsForms(request.POST)
-            if readings_forms.is_valid():
+            tariffs_forms = TariffsForms(request.POST)
+            if readings_forms.is_valid() and tariffs_forms.is_valid():
                 print('VaLiD')
                 readings = Readings(date_readings=readings_forms.cleaned_data['date_readings'],
-                                         previous_readings=readings_forms.cleaned_data['previous_readings'],
-                                         current_readings=readings_forms.cleaned_data['current_readings'],
-                                         consumed=readings_forms.cleaned_data['consumed']
-                                         )
-                calculation.get_calculated_data(readings)
-                print(calculation.amount_electricity)
+                                    previous_readings=readings_forms.cleaned_data['previous_readings'],
+                                    current_readings=readings_forms.cleaned_data['current_readings'],
+                                    consumed=readings_forms.cleaned_data['consumed'],
+                                    )
+                tariffs = Tariffs(tariff_1_limit=tariffs_forms.cleaned_data['tariff_1_limit'],
+                                  tariff_2_limit=tariffs_forms.cleaned_data['tariff_2_limit'],
+                                  tariff_1=tariffs_forms.cleaned_data['tariff_1'],
+                                  tariff_2=tariffs_forms.cleaned_data['tariff_2'],
+                                  tariff_3=tariffs_forms.cleaned_data['tariff_3'],
+                                  )
+                calculation.get_calculated_data(tariffs=tariffs, readings=readings)
+                readings.consumed = calculation.amount_electricity
+                readings_forms = ReadingsForms(initial={'date_readings': readings.date_readings,
+                                                        'previous_readings': readings.previous_readings,
+                                                        'current_readings': readings.current_readings,
+                                                        'consumed': 0,
+                                                        }
+                                               )
 
 
         return render(request, 'index.html', {'login_form': login_form,

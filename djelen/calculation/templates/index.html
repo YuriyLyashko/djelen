@@ -179,6 +179,8 @@
                             <p><input class="button" type="submit" name=""  value="Використовувати ці тарифи &#10; наступного разу"></p>
                         {% endif %}
                     </div>
+                    <form method="POST">
+                        {% csrf_token %}
                     <div class="tariffs block">
                         <p>
                             {{ texts.pointer_tariff_limit_to }} {{ tariffs_forms.tariff_1_limit }}
@@ -199,8 +201,6 @@
                     <div class="el_meter_header block">
                         {{ texts.header_of_block_consumption }}
                     </div>
-                    <form method="POST">
-                        {% csrf_token %}
                         <div class="el_meter block">
                             <p>{{ texts.date_meter_tariffs }} {{ readings_forms.date_readings }}</p>
                             <p>{{ texts.previous_shows }} {{ readings_forms.previous_readings }}</p>
