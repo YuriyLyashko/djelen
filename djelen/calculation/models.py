@@ -64,4 +64,4 @@ class Calculation(models.Model):
                            tariff_3=tariffs.tariff_3
                            )
         else:
-            raise ValueError('amount_electricity < 0')
+            raise ValueError('amount_electricity = {} < 0'.format(self.amount_electricity))

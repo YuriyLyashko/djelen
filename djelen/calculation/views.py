@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from datetime import *
 
 from accounts.forms import RegisterUserForm, Login
@@ -75,14 +76,13 @@ def index(request):
                                   tariff_2=tariffs_forms.cleaned_data['tariff_2'],
                                   tariff_3=tariffs_forms.cleaned_data['tariff_3'],
                                   )
-                calculation.get_calculated_data(tariffs=tariffs, readings=readings)
+                try:
+                    calculation.get_calculated_data(tariffs=tariffs, readings=readings)
+                except ValueError as value_error_message:
+                    messages.success(request, value_error_message)
+                    return redirect('/')
                 readings.consumed = calculation.amount_electricity
-                readings_forms = ReadingsForms(initial={'date_readings': readings.date_readings,
-                                                        'previous_readings': readings.previous_readings,
-                                                        'current_readings': readings.current_readings,
-                                                        'consumed': 0,
-                                                        }
-                                               )
+
 
 
         return render(request, 'index.html', {'login_form': login_form,
