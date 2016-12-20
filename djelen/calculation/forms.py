@@ -26,4 +26,4 @@ class Texts:
     pointer_amount_of_electricity_in_tariff_2 = "обсяг, спожитий понад               кВт∙год " \
                                                 "до               кВт∙год електроенергії на місяць (включно):"
     pointer_amount_of_electricity_in_tariff_3 = "обсяг, спожитий понад               кВт∙год електроенергії на місяць:"
-    pointer_total_amount_of_money = "Всього:                          грн."
+    pointer_total_amount_of_money = "Всього, грн.:"

@@ -217,22 +217,28 @@
                         <p>
                             {{ texts.pointer_tariff_limit_to }} {{ tariffs.tariff_1_limit }}
                             {{ texts.pointer_kwh_month }} {{ texts.pointer_including }}
-                            <div class="electricity_for_tariffs"> {{ calculation.electricity_tariff_1 }} </div>
+                            <em class="electricity_for_tariffs"> {{ calculation.electricity_tariff_1 }} </em>
                         </p>
                         <p>
                             {{ texts.pointer_tariff_limit_over }} {{ tariffs.tariff_1_limit }}
                             {{ texts.pointer_kwh }} {{ tariffs.tariff_2_limit }}
                             {{ texts.pointer_kwh_month }} {{ texts.pointer_including }}
-                            <div class="electricity_for_tariffs"> {{ calculation.electricity_tariff_2 }} </div>
+                            <em class="electricity_for_tariffs"> {{ calculation.electricity_tariff_2 }} </em>
                         </p>
                         <p>
                             {{ texts.pointer_tariff_limit_over }} {{ tariffs.tariff_2_limit }}
                             {{ texts.pointer_kwh_month }}
-                            <div class="electricity_for_tariffs"> {{ calculation.electricity_tariff_3 }} </div>
+                            <em class="electricity_for_tariffs"> {{ calculation.electricity_tariff_3 }} </em>
                         </p>
                     </div>
                     <div class="count_out_right block">
-                        count_out_right
+                        <p> x {{ tariffs.tariff_1 }} = {{ calculation.cost_tariff_1 }}</p>
+                        <p> x {{ tariffs.tariff_2 }} = {{ calculation.cost_tariff_2 }}</p>
+                        <p> x {{ tariffs.tariff_3 }} = {{ calculation.cost_tariff_3 }}</p>
+                        <p>
+                            {{ texts.pointer_total_amount_of_money }}
+                            <em class="electricity_for_tariffs"> {{ calculation.cost_total }} </em>
+                        </p>
                     </div>
                 </div>
 

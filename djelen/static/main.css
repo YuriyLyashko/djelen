@@ -140,6 +140,9 @@ body {
     width: 65px;
 }
 
+.electricity_for_tariffs {
+    float: right;
+}
 
 .button {
     width: 100%;
