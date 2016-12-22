@@ -140,7 +140,7 @@
         </div>
         <div class="column2 block column">
             {%block content%}
-            <div class="object_info block"> object_info
+            <div class="object_info block">
                 {% if user.is_anonymous %}
                     <p class="text_authenticate">
                         Щоб отримати можливість зберігати розрахунки, необхідно автентифікуватися.
@@ -159,28 +159,34 @@
                     {% endif %}
                 {% endif %}
             </div>
-            <div class="calculation block"> calculation
-
+            <div class="calculation block">
                 <div class="calculation_header block">{{ texts.сentral_title }}</div>
                 <div class="calculation_tariffs block">
                     <div class="tariffs_header block">{{ texts.header_of_block_tariffs }}</div>
                     <div class="tariffs_date_saving block">
-                        {{ texts.pointer_date_saving_tariffs }} {{ tariffs.date }}
                         {% if user.is_anonymous %}
                             <form method="POST">
                                 {% csrf_token %}
                                 <input class="button" type="submit" name="update_tariffs" value="Оновити тарифи &#10; через інтернет">
                             </form>
-                        {% else %}
-                            <form method="POST">
-                                {% csrf_token %}
-                                <input class="button" type="submit" name="update_tariffs" value="Оновити тарифи &#10; через інтернет">
-                            </form>
-                            <p><input class="button" type="submit" name=""  value="Використовувати ці тарифи &#10; наступного разу"></p>
-                        {% endif %}
-                    </div>
                     <form method="POST">
                         {% csrf_token %}
+                        {% else %}
+                            {{ texts.pointer_date_saving_tariffs }} {{ tariffs.date }}
+                            <p>
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <input class="button" type="submit" name="update_tariffs" value="Оновити тарифи &#10; через інтернет">
+                                </form>
+                            </p>
+                    <form method="POST">
+                        {% csrf_token %}
+                            <p>
+                                <input class="button" type="submit" name="save_tariffs"  value="Використовувати ці тарифи &#10; наступного разу">
+                            </p>
+                        {% endif %}
+                    </div>
+
                     <div class="tariffs block">
                         <p>
                             {{ texts.pointer_tariff_limit_to }} {{ tariffs_forms.tariff_1_limit }}
@@ -207,11 +213,16 @@
                             <p>{{ texts.current_shows }} {{ readings_forms.current_readings }}</p>
                             <p>{{ texts.text_or }}</p>
                             <p>{{ texts.amount_of_electricity }} {{ readings_forms.consumed }}</p>
+                            <p>
+                                <em class="electricity_for_tariffs">
+                                    {{ texts.pointer_total_amount_of_money }}
+                                    {{ calculation.amount_electricity }}
+                                </em>
+                            </p>
                         </div>
                         <div class="el_meter_count block">
                             <input class="button" type="submit" name="calculate" value="Розрахувати">
                         </div>
-                        {{ calculation.amount_electricity }}
                     </form>
                 </div>
                 <div class="calculation_count_out block">

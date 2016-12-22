@@ -113,12 +113,22 @@ body {
 }
 
 .calculation_el_meter, .calculation_count_out {
-    height: 265px
+    height: 280px
 }
 
-.tariffs_header, .tariffs, .el_meter_header, .el_meter, .count_out_header, .count_out {
+
+.calculation_count_out {
+    height: 230px
+}
+
+.tariffs, .el_meter, .count_out {
     float: left;
     width: 77%;
+}
+
+.tariffs_header, .el_meter_header, .count_out_header {
+    float: left;
+    width: 98%;
 }
 
 .tariffs_date_saving, .el_meter_count, .count_out_right {

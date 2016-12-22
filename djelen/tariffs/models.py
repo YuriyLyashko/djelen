@@ -14,7 +14,11 @@ class Tariffs(models.Model):
     date = models.DateField()
 
     def __str__(self):
-        return "Тарифи: {}, {}, {}".format(self.tarrif_limit_1, self.tarrif_limit_2, self.tarrif_limit_3)
+        return "Тарифи: {}, {}, {}, {}, {}".format(self.tariff_1_limit, self.tariff_2_limit,
+                                           self.tariff_1,
+                                           self.tariff_2,
+                                           self.tariff_3
+                                           )
 
     def update_tariffs(self):
         '''
@@ -40,6 +44,7 @@ class Tariffs(models.Model):
             print('ValueError')
 
     def get_start_tariffs(self):
+        print('get_start_tariffs')
         self.tariff_1_limit = 50
         self.tariff_2_limit = 100
         self.tariff_1 = 0.5
