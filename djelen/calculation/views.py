@@ -173,23 +173,12 @@ def index(request):
             print('update_tariffs')
             tariffs.update_tariffs()
             tariffs_forms.update_tarifs_forms(tariffs)
-            # return render(request, 'index.html', {'login_form': login_form,
-            #                                       'el_objs': el_objs,
-            #                                       'last_selected': last_selected,
-            #                                       'el_mtrs': el_mtrs,
-            #                                       'texts': texts,
-            #                                       'tariffs_forms': tariffs_forms,
-            #                                       'readings': readings,
-            #                                       'readings_forms': readings_forms,
-            #                                       'calculation': calculation,
-            #                                       }
-            #               )
+
         if request.POST.get('save_tariffs'):
             print('save_tariffs')
             tariffs_forms = TariffsForms(request.POST)
             print(tariffs_forms)
             if tariffs_forms.is_valid():
-                print('valid tariffs forms')
                 tariffs = Tariffs.objects.get(user=current_user)
                 tariffs.tariff_1_limit = tariffs_forms.cleaned_data['tariff_1_limit']
                 tariffs.tariff_2_limit = tariffs_forms.cleaned_data['tariff_2_limit']
@@ -206,37 +195,28 @@ def index(request):
             readings_forms = ReadingsForms(request.POST)
             tariffs_forms = TariffsForms(request.POST)
             if readings_forms.is_valid() and tariffs_forms.is_valid():
-                 print('VaLiD', current_user)
-                # if current_user.is_anonymous:
-                #     print('anonymous')
-                #     readings = Readings(date_readings=readings_forms.cleaned_data['date_readings'],
-                #                         previous_readings=readings_forms.cleaned_data['previous_readings'],
-                #                         current_readings=readings_forms.cleaned_data['current_readings'],
-                #                         consumed=readings_forms.cleaned_data['consumed'],
-                #                         )
-                #     tariffs = Tariffs(user=current_user,
-                #                       tariff_1_limit=tariffs_forms.cleaned_data['tariff_1_limit'],
-                #                       tariff_2_limit=tariffs_forms.cleaned_data['tariff_2_limit'],
-                #                       tariff_1=tariffs_forms.cleaned_data['tariff_1'],
-                #                       tariff_2=tariffs_forms.cleaned_data['tariff_2'],
-                #                       tariff_3=tariffs_forms.cleaned_data['tariff_3'],
-                #                         #date=readings.date_readings
-                #                       )
-                #     try:
-                #         calculation.get_calculated_data(tariffs=tariffs, readings=readings)
-                #     except ValueError as value_error_message:
-                #         messages.success(request, value_error_message)
-                #         return redirect('/')
-                #     readings.consumed = calculation.amount_electricity
-            # return render(request, 'index.html', {'login_form': login_form,
-            #                                       'texts': texts,
-            #                                       'tariffs_forms': tariffs_forms,
-            #                                       'tariffs': tariffs,
-            #                                       'readings': readings,
-            #                                       'readings_forms': readings_forms,
-            #                                       'calculation': calculation,
-            #                                       }
-            #               )
+                print('VaLiD', current_user)
+                readings = Readings(date_readings=readings_forms.cleaned_data['date_readings'],
+                                    previous_readings=readings_forms.cleaned_data['previous_readings'],
+                                    current_readings=readings_forms.cleaned_data['current_readings'],
+                                    consumed=readings_forms.cleaned_data['consumed'],
+                                    electricity_meter=last_selected.el_mtr
+                                    )
+                tariffs = Tariffs(user=current_user,
+                                  tariff_1_limit=tariffs_forms.cleaned_data['tariff_1_limit'],
+                                  tariff_2_limit=tariffs_forms.cleaned_data['tariff_2_limit'],
+                                  tariff_1=tariffs_forms.cleaned_data['tariff_1'],
+                                  tariff_2=tariffs_forms.cleaned_data['tariff_2'],
+                                  tariff_3=tariffs_forms.cleaned_data['tariff_3'],
+                                  date=readings.date_readings
+                                  )
+                try:
+                    calculation.get_calculated_data(tariffs=tariffs, readings=readings)
+                except ValueError as value_error_message:
+                    messages.success(request, value_error_message)
+                    return redirect('/')
+                readings.consumed = calculation.amount_electricity
+
         return render(request, 'index.html', {'login_form': login_form,
                                               'el_objs': el_objs,
                                               'last_selected': last_selected,
