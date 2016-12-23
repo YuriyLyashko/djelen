@@ -137,28 +137,28 @@
                 {% endif %}
 
             </div>
-        </div>
-        <div class="column2 block column">
-            {%block content%}
-            <div class="object_info block">
+            <div class="object_info">
                 {% if user.is_anonymous %}
-                    <p class="text_authenticate">
+                    <b class="text_authenticate">
                         Щоб отримати можливість зберігати розрахунки, необхідно автентифікуватися.
-                    </p>
+                    </b>
                 {% else %}
                     {% if last_selected.el_obj %}
-                        <p class="text_el_obj_entered"> {{ last_selected.el_obj }}</p>
-                        <p class="text_el_obj_entered"> Адреса: {{ last_selected.el_obj.address }}</p>
+                        <br><b class="text_el_obj_entered"> {{ last_selected.el_obj }}</b>
+                        <br><b class="text_el_obj_entered"> Адреса: {{ last_selected.el_obj.address }}</b>
                     {% else %}
-                        <p class="text_enter_el_obj"> Оберіть електрифікований об'єкт! </p>
+                        <br><b class="text_enter_el_obj"> Оберіть електрифікований об'єкт!</b>
                     {% endif %}
                     {% if last_selected.el_mtr %}
-                        <p class="text_el_mtr_entered"> {{ last_selected.el_mtr }} </p>
+                        <br><b class="text_el_mtr_entered"> {{ last_selected.el_mtr }}</b>
                     {% else %}
-                        <p class="text_enter_el_mtr"> Оберіть лічильник! </p>
+                        <br><b class="text_enter_el_mtr"> Оберіть лічильник!</b>
                     {% endif %}
                 {% endif %}
             </div>
+        </div>
+        <div class="column2 block column">
+            {%block content%}
             <div class="calculation block">
                 <div class="calculation_header block">{{ texts.сentral_title }}</div>
                 <div class="calculation_tariffs block">
@@ -172,7 +172,7 @@
                     <form method="POST">
                         {% csrf_token %}
                         {% else %}
-                            {{ texts.pointer_date_saving_tariffs }} {{ tariffs.date }}
+                            <p> {{ texts.pointer_date_saving_tariffs }} {{ tariffs.date }} </p>
                             <p>
                                 <form method="POST">
                                     {% csrf_token %}
@@ -257,11 +257,7 @@
                         </p>
                     </div>
                 </div>
-
             </div>
-
-
-
 
 
             {% endblock %}

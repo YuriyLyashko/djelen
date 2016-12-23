@@ -6,9 +6,15 @@
 
 .header_left {
     float: left;
+    height: 130px;
     color: blue;
     font-size: 55px;
     text-align: center;
+    width: 70%;
+}
+
+.object_info {
+    float: left;
     width: 70%;
 }
 
@@ -126,7 +132,12 @@ body {
     width: 77%;
 }
 
-.tariffs_header, .el_meter_header, .count_out_header {
+.tariffs_header {
+    float: left;
+    width: 77%;
+}
+
+.el_meter_header, .count_out_header {
     float: left;
     width: 98%;
 }
