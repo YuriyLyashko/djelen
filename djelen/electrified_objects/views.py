@@ -11,14 +11,14 @@ def change_el_obj(request):
     current_user = request.user
     if not current_user.is_anonymous:
         if request.POST.get('but_change_el_obj'):
-            try:
-                last_selected, el_objs, selected_el_obj, el_mtrs = ElectrifiedObject.get_data_for_select(current_user)
+            last_selected, el_objs, selected_el_obj, el_mtrs = ElectrifiedObject.get_data_for_select(current_user)
+            if selected_el_obj:
                 return render(request, 'change_el_obj.html', {'el_objs': el_objs,
                                                               'last_selected': last_selected,
                                                               'el_mtrs': el_mtrs,
                                                               }
                               )
-            except:
+            else:
                 messages.success(request, "Оберіть електрифікований об'єкт для редагування")
                 return redirect('/')
 
@@ -45,14 +45,15 @@ def del_el_obj(request):
     current_user = request.user
     if not current_user.is_anonymous:
         if request.POST.get('but_del_el_obj'):
-            try:
-                last_selected, el_objs, selected_el_obj, el_mtrs = ElectrifiedObject.get_data_for_select(current_user)
+            last_selected, el_objs, selected_el_obj, el_mtrs = ElectrifiedObject.get_data_for_select(current_user)
+            if selected_el_obj:
+                print(selected_el_obj)
                 return render(request, 'del_el_obj.html', {'el_objs': el_objs,
                                                               'last_selected': last_selected,
                                                               'el_mtrs': el_mtrs,
                                                               }
                               )
-            except:
+            else:
                 messages.success(request, "Оберіть електрифікований об'єкт для видалення")
                 return redirect('/')
 
