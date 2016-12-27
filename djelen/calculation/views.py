@@ -179,15 +179,25 @@ def index(request):
             tariffs_forms = TariffsForms(request.POST)
             print(tariffs_forms)
             if tariffs_forms.is_valid():
-                tariffs = Tariffs.objects.get(user=current_user)
-                tariffs.tariff_1_limit = tariffs_forms.cleaned_data['tariff_1_limit']
-                tariffs.tariff_2_limit = tariffs_forms.cleaned_data['tariff_2_limit']
-                tariffs.tariff_1 = tariffs_forms.cleaned_data['tariff_1']
-                tariffs.tariff_2 = tariffs_forms.cleaned_data['tariff_2']
-                tariffs.tariff_3 = tariffs_forms.cleaned_data['tariff_3']
-                tariffs.date = date_now
-                tariffs.save()
-
+                try:
+                    tariffs = Tariffs.objects.get(user=current_user)
+                    tariffs.tariff_1_limit = tariffs_forms.cleaned_data['tariff_1_limit']
+                    tariffs.tariff_2_limit = tariffs_forms.cleaned_data['tariff_2_limit']
+                    tariffs.tariff_1 = tariffs_forms.cleaned_data['tariff_1']
+                    tariffs.tariff_2 = tariffs_forms.cleaned_data['tariff_2']
+                    tariffs.tariff_3 = tariffs_forms.cleaned_data['tariff_3']
+                    tariffs.date = date_now
+                    tariffs.save()
+                except:
+                    tariffs = Tariffs(user=current_user,
+                                      tariff_1_limit=tariffs_forms.cleaned_data['tariff_1_limit'],
+                                      tariff_2_limit=tariffs_forms.cleaned_data['tariff_2_limit'],
+                                      tariff_1=tariffs_forms.cleaned_data['tariff_1'],
+                                      tariff_2=tariffs_forms.cleaned_data['tariff_2'],
+                                      tariff_3=tariffs_forms.cleaned_data['tariff_3'],
+                                      date=date_now
+                                      )
+                    tariffs.save()
 
         if request.POST.get('calculate'):
             print('calculate')
