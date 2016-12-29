@@ -255,12 +255,21 @@
                             {{ texts.pointer_total_amount_of_money }}
                             <em class="electricity_for_tariffs"> {{ calculation.cost_total }} </em>
                         </p>
+                        <p>
+                            <form method="POST">
+                                {% csrf_token %}
+                                <input class="button" type="submit" name="update_tariffs" value="Зберегти розрахунок">
+                            </form>
+                        </p>
                     </div>
                 </div>
             </div>
+            <div class="actions_with_data block">
+                actions_with_data
+            </div>
+
             {% endblock %}
         </div>
-
         <div class="footer block">.footer
             {{ tariffs.user }}
             {{ tariffs.tariff_1 }}

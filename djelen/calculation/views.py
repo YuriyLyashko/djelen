@@ -177,7 +177,6 @@ def index(request):
         if request.POST.get('save_tariffs'):
             print('save_tariffs')
             tariffs_forms = TariffsForms(request.POST)
-            print(tariffs_forms)
             if tariffs_forms.is_valid():
                 try:
                     tariffs = Tariffs.objects.get(user=current_user)

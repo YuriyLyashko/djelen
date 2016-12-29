@@ -26,12 +26,16 @@ def change_el_obj(request):
             print(request.POST.get('save'))
             el_obj_form = ElectrifiedObjectForm(request.POST)
             if el_obj_form.is_valid():
-                last_selected = LastSelected.objects.get(user=current_user)
-                selected_el_obj = last_selected.el_obj
-                selected_el_obj.name = el_obj_form.cleaned_data['name']
-                selected_el_obj.address = el_obj_form.cleaned_data['address']
-                selected_el_obj.save()
-                messages.success(request, "Об'єкт відредаговано")
+                try:
+                    ElectrifiedObject.objects.get(name=el_obj_form.cleaned_data['name'])
+                    messages.success(request, "Електрифікований об'єкт з такою назвою вже існує")
+                except:
+                    last_selected = LastSelected.objects.get(user=current_user)
+                    selected_el_obj = last_selected.el_obj
+                    selected_el_obj.name = el_obj_form.cleaned_data['name']
+                    selected_el_obj.address = el_obj_form.cleaned_data['address']
+                    selected_el_obj.save()
+                    messages.success(request, "Об'єкт відредаговано")
                 return redirect('/')
 
         if request.POST.get('cancel'):
@@ -212,6 +216,8 @@ def add_el_mtr(request):
             print('but_add_el_mtr')
             try:
                 last_selected, el_objs, selected_el_obj, el_mtrs = ElectrifiedObject.get_data_for_select(current_user)
+                if not selected_el_obj:
+                    raise IndexError
                 el_mtr_form = ElectricityMeterForm()
                 return render(request, 'add_el_mtr.html', {'el_objs': el_objs,
                                                            'last_selected': last_selected,
